@@ -80,7 +80,7 @@ const Sidebar = () => {
           {user && (
             <button
               onClick={handleLogout}
-              className="mt-10 w-full block md:hidden bg-gradient-to-r from-rose-500 to-pink-500 text-white text-sm py-2 rounded-lg font-semibold shadow hover:opacity-90 transition"
+              className="mt-10 w-full cursor-pointer block md:hidden bg-gradient-to-r from-rose-500 to-pink-500 text-white text-sm py-2 rounded-lg font-semibold shadow hover:opacity-90 transition"
             >
               Logout
             </button>

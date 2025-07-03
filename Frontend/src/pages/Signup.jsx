@@ -98,7 +98,7 @@ const Signup = () => {
 
           <button
             type="submit"
-            className="w-full py-2.5 rounded-lg bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-semibold shadow-md hover:opacity-90 transition"
+            className="w-full py-2.5 rounded-lg bg-gradient-to-r cursor-pointer from-indigo-500 to-pink-500 text-white font-semibold shadow-md hover:opacity-90 transition"
           >
             Sign Up
           </button>
@@ -108,7 +108,7 @@ const Signup = () => {
           Already have an account?{" "}
           <a
             href="/login"
-            className="text-indigo-600 font-medium hover:underline"
+            className="text-indigo-600 font-medium hover:underline cursor-pointer"
           >
             Log in
           </a>

@@ -1,16 +1,24 @@
-
-import React, { useState } from 'react';
-import DashboardLayout from '../Layout/DashboardLayout';
+import React, { useState, useEffect } from "react";
+import DashboardLayout from "../Layout/DashboardLayout";
+import { toast } from "react-toastify";
+import { Trash2 } from "lucide-react"; 
 
 const CreateTicket = () => {
   const [formData, setFormData] = useState({
-    subject: '',
-    category: '',
-    description: '',
+    subject: "",
+    category: "",
+    description: "",
   });
 
+  const [tickets, setTickets] = useState([]);
+
+  useEffect(() => {
+    const storedTickets = JSON.parse(localStorage.getItem("tickets")) || [];
+    setTickets(storedTickets);
+  }, []);
+
   const handleChange = (e) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
@@ -18,8 +26,29 @@ const CreateTicket = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
-    alert("Ticket Submitted!");
+
+    const newTicket = {
+      id: Date.now(),
+      ...formData,
+    };
+
+    const updatedTickets = [...tickets, newTicket];
+    localStorage.setItem("tickets", JSON.stringify(updatedTickets));
+    setTickets(updatedTickets);
+
+    toast.success("✅ Ticket Submitted!");
+    setFormData({
+      subject: "",
+      category: "",
+      description: "",
+    });
+  };
+
+  const handleDelete = (id) => {
+    const updated = tickets.filter((ticket) => ticket.id !== id);
+    localStorage.setItem("tickets", JSON.stringify(updated));
+    setTickets(updated);
+    toast.info("🗑️ Ticket deleted");
   };
 
   return (
@@ -90,6 +119,39 @@ const CreateTicket = () => {
             </button>
           </div>
         </form>
+
+        {/* Show Submitted Tickets */}
+        {tickets.length > 0 && (
+          <div className="mt-10">
+            <h2 className="text-xl font-semibold text-rose-600 mb-4">
+              Your Submitted Tickets
+            </h2>
+            <ul className="space-y-4">
+              {tickets.map((ticket) => (
+                <li
+                  key={ticket.id}
+                  className="border border-rose-100 p-4 rounded-xl shadow-sm bg-white flex justify-between items-start gap-4"
+                >
+                  <div>
+                    <h3 className="font-bold text-lg">{ticket.subject}</h3>
+                    <p className="text-sm text-gray-600">
+                      Category: {ticket.category}
+                    </p>
+                    <p className="mt-1 text-gray-700">{ticket.description}</p>
+                  </div>
+
+                  <button
+                    onClick={() => handleDelete(ticket.id)}
+                    className="text-rose-500 hover:text-rose-700 transition"
+                    title="Delete Ticket"
+                  >
+                    <Trash2 size={20} />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </DashboardLayout>
   );

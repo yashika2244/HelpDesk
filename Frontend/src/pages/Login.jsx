@@ -85,7 +85,7 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full py-2.5 rounded-lg bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-semibold shadow-md hover:opacity-90 transition"
+            className="w-full cursor-pointer py-2.5 rounded-lg bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-semibold shadow-md hover:opacity-90 transition"
           >
             Sign In
           </button>
@@ -95,7 +95,7 @@ const Login = () => {
           Don’t have an account?{" "}
           <a
             href="/signup"
-            className="text-indigo-600 font-medium hover:underline"
+            className="text-indigo-600 font-medium hover:underline cursor-pointer"
           >
             Sign up
           </a>

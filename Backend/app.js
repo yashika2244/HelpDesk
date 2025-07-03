@@ -7,7 +7,13 @@ import connectDB from "./config/databaseConnection.js";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'https://help-desk-olive.vercel.app/',
+  ],
+  credentials: true,
+}));
 app.use(express.json());
 
 // Routes

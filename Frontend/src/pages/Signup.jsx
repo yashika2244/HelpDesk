@@ -30,6 +30,8 @@ const Signup = () => {
         setName("");
         setEmail("");
         setPassword("");
+        navigate("/login");
+
       } else {
         toast.error(data.message);
       }

@@ -26,32 +26,30 @@ const Signup = () => {
 
       if (res.ok) {
         login(data.user, data.token);
-         toast.success("Signup successful!");
+        toast.success("Signup successful!");
         setName("");
         setEmail("");
         setPassword("");
       } else {
-         toast.error(data.message);
+        toast.error(data.message);
       }
     } catch (err) {
       console.error("Signup error:", err);
-       toast.error("Signup failed");
+      toast.error("Signup failed");
     }
   };
 
   return (
-   
-   
-   <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-200 via-purple-200 to-indigo-200 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-200 via-purple-200 to-indigo-200 px-4">
       <div className="absolute top-6 right-6 text-2xl italic font-bold text-rose-700 tracking-wide">
         Help<span className="text-pink-500 italic">Desk</span> System
       </div>
-      
+
       <div className="w-full max-w-md bg-white/80 backdrop-blur-lg border border-white/40 p-8 rounded-2xl shadow-2xl">
         <h1 className="text-4xl font-extrabold text-indigo-700 text-center mb-2">
           Create Account
         </h1>
-        {/* <p className="text-center text-gray-600 mb-6">Sign up to get started</p> */}
+  
 
         <form className="space-y-5 mt-5" onSubmit={handleSignup}>
           <div>

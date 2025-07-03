@@ -1,5 +1,3 @@
-
-
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -27,8 +25,8 @@ const Login = () => {
 
       if (res.ok) {
         login(data.user, data.token);
-                 toast.success("Login successful!");
-        
+        toast.success("Login successful!");
+
         setEmail("");
         setPassword("");
         navigate("/dashboard");
@@ -43,7 +41,6 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-pink-200 via-purple-200 to-indigo-200 px-4 py-10">
-      
       {/* Logo / Title outside the card */}
       <div className="absolute top-6 right-6 text-2xl italic font-bold text-rose-700 tracking-wide">
         Help<span className="text-pink-500 italic">Desk</span> System
@@ -53,7 +50,9 @@ const Login = () => {
         <h2 className="text-3xl font-bold text-indigo-700 text-center mb-2">
           Welcome Back
         </h2>
-        <p className="text-center text-gray-600 mb-6">Sign in to your account</p>
+        <p className="text-center text-gray-600 mb-6">
+          Sign in to your account
+        </p>
 
         <form onSubmit={handleLogin} className="space-y-5">
           <div>
@@ -107,5 +106,3 @@ const Login = () => {
 };
 
 export default Login;
-
-

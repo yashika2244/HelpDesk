@@ -10,7 +10,7 @@ const app = express();
 app.use(cors({
   origin: [
     'http://localhost:5173',
-    'https://help-desk-olive.vercel.app/',
+    'https://help-desk-olive.vercel.app',
   ],
   credentials: true,
 }));

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import DashboardLayout from "../Layout/DashboardLayout";
+import { useParams } from "react-router-dom";
 
 const tickets = [
   {
@@ -39,19 +40,33 @@ const getStatusStyle = (status) => {
 };
 
 const TicketList = () => {
+  const { type } = useParams();
+  const [selectedTicket, setSelectedTicket] = useState(null);
+
+  const filteredTickets =
+    !type || type === "total"
+      ? tickets
+      : tickets.filter((t) => t.status?.toLowerCase() === type?.toLowerCase());
+
+  const heading =
+    !type || type === "total"
+      ? "All Tickets"
+      : `${type?.charAt(0).toUpperCase() + type?.slice(1)} Tickets`;
+
   return (
     <DashboardLayout>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 md:py-6">
         <h1 className="text-3xl font-extrabold text-center text-rose-600 mb-8">
-          All Tickets
+          {heading}
         </h1>
 
-        {/* Mobile View: Cards */}
+        {/* Mobile Cards */}
         <div className="space-y-4 md:hidden">
-          {tickets.map((ticket) => (
+          {filteredTickets.map((ticket) => (
             <div
               key={ticket.id}
-              className="bg-white rounded-xl shadow p-4 border border-rose-100"
+              onClick={() => setSelectedTicket(ticket)}
+              className="bg-white rounded-xl shadow p-4 border border-rose-100 cursor-pointer hover:bg-rose-50 transition"
             >
               <div className="text-sm font-semibold text-gray-800 mb-1">
                 Ticket ID: <span className="text-rose-500">{ticket.id}</span>
@@ -79,7 +94,7 @@ const TicketList = () => {
           ))}
         </div>
 
-        {/* Desktop View: Table */}
+        {/* Desktop Table */}
         <div className="hidden md:block overflow-x-auto bg-white/80 backdrop-blur border border-rose-100 rounded-2xl shadow-lg">
           <table className="min-w-full text-sm text-left">
             <thead className="bg-rose-100 text-gray-700 uppercase text-xs">
@@ -92,10 +107,11 @@ const TicketList = () => {
               </tr>
             </thead>
             <tbody>
-              {tickets.map((ticket, idx) => (
+              {filteredTickets.map((ticket, idx) => (
                 <tr
                   key={ticket.id}
-                  className={`border-t transition ${
+                  onClick={() => setSelectedTicket(ticket)}
+                  className={`border-t cursor-pointer transition ${
                     idx % 2 === 0 ? "bg-white" : "bg-rose-50/50"
                   } hover:bg-rose-100/40`}
                 >
@@ -122,6 +138,47 @@ const TicketList = () => {
           </table>
         </div>
       </div>
+
+      {/* ✅ Modal Popup */}
+      {selectedTicket && (
+        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm  items-center justify-center z-50 px-4  md:flex hidden">
+          <div className="bg-white rounded-xl shadow-lg p-6 max-w-md w-full relative">
+            <button
+              onClick={() => setSelectedTicket(null)}
+              className="absolute top-2 right-3 text-gray-500 hover:text-rose-500 text-xl"
+            >
+              ×
+            </button>
+            <h2 className="text-xl font-bold text-rose-600 mb-4">
+              Ticket Details
+            </h2>
+            <div className="space-y-2 text-sm">
+              <div>
+                <strong>ID:</strong> {selectedTicket.id}
+              </div>
+              <div>
+                <strong>Subject:</strong> {selectedTicket.subject}
+              </div>
+              <div>
+                <strong>Category:</strong> {selectedTicket.category}
+              </div>
+              <div>
+                <strong>Status:</strong>{" "}
+                <span
+                  className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${getStatusStyle(
+                    selectedTicket.status
+                  )}`}
+                >
+                  {selectedTicket.status}
+                </span>
+              </div>
+              <div>
+                <strong>Created:</strong> {selectedTicket.createdAt}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </DashboardLayout>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FiHome, FiPlusSquare, FiList, FiMenu, FiX } from "react-icons/fi";
 import { useAuth } from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 const Sidebar = () => {
   const { user, logout } = useAuth();
@@ -20,6 +21,8 @@ const Sidebar = () => {
 
   const handleLogout = () => {
     logout();
+       toast.success("Logged out successfully!"); 
+    
     navigate("/login");
   };
 

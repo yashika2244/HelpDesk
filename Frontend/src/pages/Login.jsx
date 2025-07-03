@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const { login } = useAuth();
@@ -26,15 +27,17 @@ const Login = () => {
 
       if (res.ok) {
         login(data.user, data.token);
+                 toast.success("Login successful!");
+        
         setEmail("");
         setPassword("");
         navigate("/dashboard");
       } else {
-        alert(data.message);
+        toast.error(data.message);
       }
     } catch (err) {
       console.error("Login error:", err);
-      alert("Login failed");
+      toast.error("Login failed");
     }
   };
 
